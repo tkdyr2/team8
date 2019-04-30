@@ -1,0 +1,4 @@
+create table ADMINISTRATOR(
+admin_ID varchar(12) primary key,
+admin_PW varchar(12),
+power tinyint);
