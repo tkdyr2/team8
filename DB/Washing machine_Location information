@@ -1,0 +1,5 @@
+create table Washshing_machine_Location_information(
+Location_ID varchar(12) primary key,
+Building_name varchar(45),
+Floor varchar(45),
+Explanation text);
