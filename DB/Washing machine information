@@ -1,0 +1,8 @@
+create table Washshing_machine_information(
+ID varchar(12) primary key,
+manufactor varchar(45),
+model_year varchar(45),
+Is_Use varchar(45),
+Is_Trouble varchar(45),
+Locaton_information varchar(12),
+foreign key(Locaton_information) references Washshing_machine_Location_information(Location_ID));
