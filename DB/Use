@@ -1,0 +1,8 @@
+create table `Use`(
+Use_ID varchar(12) primary key,
+Start_time time,
+Finish_time time,
+User_number varchar(12),
+Locaton_information varchar(12),
+foreign key(User_number) references USER(Customer_Number),
+foreign key(Locaton_information) references Washshing_machine_Location_information(Location_ID));
