@@ -1,0 +1,7 @@
+create table Reservation(
+R_ID varchar(12) primary key,
+R_Time varchar(45),
+User_number varchar(12),
+Washing_information varchar(12),
+foreign key(User_number) references USER(Customer_Number),
+foreign key(Washing_information) references Washshing_machine_information(ID));
