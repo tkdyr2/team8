@@ -1,8 +1,8 @@
 create table Suggestions(
-Sug_NUM int primary key,
-Suggestions text,
-User_number varchar(12),
-Sug_DATA date,
-Ans_DATA date,
+Sug_NUM_P int primary key,
+contents text,
+User_number_F varchar(12),
+Sug_DATE date,
+Ans_DATE date,
 answer text,
-foreign key(User_number) references USER(Customer_Number));
+foreign key(User_number_F) references USER(Customer_Number_P));
