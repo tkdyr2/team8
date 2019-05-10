@@ -1,9 +1,9 @@
 create table USER(
-Customer_Number varchar(12) primary key,
-ID varchar(12),
+Customer_Number_P varchar(12) primary key,
+ID int(12),
 PW varchar(12),
 Name varchar(45),
 Phone_Number varchar(12),
 Point int,
-adm varchar(12),
-foreign key(adm) references ADMINISTRATOR(admin_ID));
+adm_F int(12),
+foreign key(adm_F) references ADMINISTRATOR(admin_ID_P));
