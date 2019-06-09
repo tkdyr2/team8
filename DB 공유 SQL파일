@@ -1,0 +1,240 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- 생성 시간: 19-06-09 07:42
+-- 서버 버전: 10.1.40-MariaDB
+-- PHP 버전: 7.3.5
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- 데이터베이스: `wm`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `admin`
+--
+
+CREATE TABLE `admin` (
+  `P_adminID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `adminPW` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Level` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=euckr;
+
+--
+-- 테이블의 덤프 데이터 `admin`
+--
+
+INSERT INTO `admin` (`P_adminID`, `adminPW`, `Level`) VALUES
+('홍길동', 'ww', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `reservation`
+--
+
+CREATE TABLE `reservation` (
+  `P_R_ID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `R_Time` time NOT NULL,
+  `F_customer_num` int(11) NOT NULL,
+  `F_wm_infoID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=euckr;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `suggestion`
+--
+
+CREATE TABLE `suggestion` (
+  `Sug_num` int(11) NOT NULL,
+  `Suggestion` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Sug_date` date NOT NULL,
+  `Ans_date` date NOT NULL,
+  `Answer` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `F_customer_num` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=euckr;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `user`
+--
+
+CREATE TABLE `user` (
+  `P_Customer_Num` int(11) NOT NULL,
+  `userID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `userPW` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Phonenumber` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Point` int(11) DEFAULT NULL,
+  `F_adminID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=euckr;
+
+--
+-- 테이블의 덤프 데이터 `user`
+--
+
+INSERT INTO `user` (`P_Customer_Num`, `userID`, `userPW`, `Name`, `Phonenumber`, `Point`, `F_adminID`) VALUES
+(1, 'qq', 'ww', 'test', '010-1234', 5, NULL),
+(2, 'ww', 'ss', 'test2', '010-4321', 10, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `wm_info`
+--
+
+CREATE TABLE `wm_info` (
+  `P_wm_ID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `manufactor` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `model_years` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Is_Use` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Is_Trouble` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `F_locationID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=euckr;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `wm_location`
+--
+
+CREATE TABLE `wm_location` (
+  `P_location_ID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Building` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Floor` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Explanation` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=euckr;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `wm_use`
+--
+
+CREATE TABLE `wm_use` (
+  `P_useID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `StartTime` time NOT NULL,
+  `FinishTime` time NOT NULL,
+  `F_Customer` int(11) NOT NULL,
+  `F_wm_info` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=euckr;
+
+--
+-- 덤프된 테이블의 인덱스
+--
+
+--
+-- 테이블의 인덱스 `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`P_adminID`);
+
+--
+-- 테이블의 인덱스 `reservation`
+--
+ALTER TABLE `reservation`
+  ADD PRIMARY KEY (`P_R_ID`),
+  ADD KEY `F_wm_infoID` (`F_wm_infoID`),
+  ADD KEY `F_Customer_num` (`F_customer_num`);
+
+--
+-- 테이블의 인덱스 `suggestion`
+--
+ALTER TABLE `suggestion`
+  ADD PRIMARY KEY (`Sug_num`),
+  ADD KEY `F_customer_num2` (`F_customer_num`);
+
+--
+-- 테이블의 인덱스 `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`P_Customer_Num`),
+  ADD KEY `F_adminID` (`F_adminID`);
+
+--
+-- 테이블의 인덱스 `wm_info`
+--
+ALTER TABLE `wm_info`
+  ADD PRIMARY KEY (`P_wm_ID`),
+  ADD KEY `F_locationID` (`F_locationID`);
+
+--
+-- 테이블의 인덱스 `wm_location`
+--
+ALTER TABLE `wm_location`
+  ADD PRIMARY KEY (`P_location_ID`);
+
+--
+-- 테이블의 인덱스 `wm_use`
+--
+ALTER TABLE `wm_use`
+  ADD PRIMARY KEY (`P_useID`),
+  ADD KEY `F_customer_num3` (`F_Customer`),
+  ADD KEY `F_wm_info2` (`F_wm_info`);
+
+--
+-- 덤프된 테이블의 AUTO_INCREMENT
+--
+
+--
+-- 테이블의 AUTO_INCREMENT `user`
+--
+ALTER TABLE `user`
+  MODIFY `P_Customer_Num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 덤프된 테이블의 제약사항
+--
+
+--
+-- 테이블의 제약사항 `reservation`
+--
+ALTER TABLE `reservation`
+  ADD CONSTRAINT `F_Customer_num` FOREIGN KEY (`F_customer_num`) REFERENCES `user` (`P_Customer_Num`),
+  ADD CONSTRAINT `F_wm_infoID` FOREIGN KEY (`F_wm_infoID`) REFERENCES `wm_info` (`P_wm_ID`);
+
+--
+-- 테이블의 제약사항 `suggestion`
+--
+ALTER TABLE `suggestion`
+  ADD CONSTRAINT `F_customer_num2` FOREIGN KEY (`F_customer_num`) REFERENCES `user` (`P_Customer_Num`);
+
+--
+-- 테이블의 제약사항 `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `F_adminID` FOREIGN KEY (`F_adminID`) REFERENCES `admin` (`P_adminID`);
+
+--
+-- 테이블의 제약사항 `wm_info`
+--
+ALTER TABLE `wm_info`
+  ADD CONSTRAINT `F_locationID` FOREIGN KEY (`F_locationID`) REFERENCES `wm_location` (`P_location_ID`);
+
+--
+-- 테이블의 제약사항 `wm_use`
+--
+ALTER TABLE `wm_use`
+  ADD CONSTRAINT `F_customer_num3` FOREIGN KEY (`F_Customer`) REFERENCES `user` (`P_Customer_Num`),
+  ADD CONSTRAINT `F_wm_info2` FOREIGN KEY (`F_wm_info`) REFERENCES `wm_info` (`P_wm_ID`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
