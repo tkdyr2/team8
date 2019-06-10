@@ -1,0 +1,28 @@
+<?php  
+  
+$con=mysqli_connect("127.0.0.1","root","","wm");  // IP , ID , PW , DATABASE 본인껄로 변경 필요
+  
+if (mysqli_connect_errno($con))  
+{  
+   echo "Failed to connect to MySQL: " . mysqli_connect_error();  
+}  
+ 
+ 
+mysqli_set_charset($con,"utf8");  
+  
+   
+$res = mysqli_query($con,"select * from user");  // 출력하고 싶은 테이블 이름 
+   
+$result = array();  
+   
+while($row = mysqli_fetch_array($res)){  
+  array_push($result,  
+    array('id'=>$row[1],'pw'=>$row[2],'name'=>$row[3],'PhoneNumber'=>$row[4],'Point'=>$row[5]    // 띄워줄 속성 값
+    ));  
+}  
+   
+echo json_encode(array("result"=>$result));  
+   
+mysqli_close($con);  
+   
+?> 
